@@ -3,7 +3,7 @@ import socket
 # Now this Host is the IP address of the Server, over which it is running.
 # I've user my localhost.
 host = "127.0.0.1"
-port = 55555 # Choose any random port which is not so common (like 80)
+port = 5555 # Choose any random port which is not so common (like 80)
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #Bind the server to IP Address
@@ -42,7 +42,7 @@ def recieve():
         print("Connected with {str(address)}")
         # Ask the clients for Nicknames
         client.send('NICK'.encode('ascii'))
-        nickname - client.recv(1024).decode('ascii')
+        nickname = client.recv(1024).decode('ascii')
         nicknames.append(nickname)
         clients.append(client)
 
