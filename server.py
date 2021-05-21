@@ -39,7 +39,7 @@ def handle(client):
 def recieve():
     while True:
         client, address = server.accept()
-        print("Connected with {str(address)}")
+        print(f"Connected with {str(address)}")
         # Ask the clients for Nicknames
         client.send('NICK'.encode('ascii'))
         nickname = client.recv(1024).decode('ascii')
@@ -47,7 +47,7 @@ def recieve():
         clients.append(client)
 
         print(f'Nickname of the client is {nickname}')
-        broadcast(f'{nickname} joine dthe Chat'.encode('ascii'))
+        broadcast(f'{nickname} joined the Chat'.encode('ascii'))
         client.send('Connected to the Server!'.encode('ascii'))
 
         # Handling Multiple Clients Simultaneously
