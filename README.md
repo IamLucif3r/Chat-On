@@ -1,12 +1,14 @@
-## Welcome to GitHub Pages
+## Chat-On
 
-You can use the [editor on GitHub](https://github.com/IamLucif3r/Chat-On/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+This is a basic Python-based Secured Chat room. The project is entirely based on the Socket Progamming; done using Python. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Introduction
 
-### Markdown
+<b> Sockets </b> and the socket API are used to send messages across a network. They provide a form of inter-process communication (IPC). The network can be a logical, local network to the computer, or one that’s physically connected to an external network, with its own connections to other networks. The obvious example is the Internet, which you connect to via your ISP.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+#### TCP Socket
+In the diagram below, given the sequence of socket API calls and data flow for TCP:
+
 
 ```markdown
 Syntax highlighted code block
