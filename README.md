@@ -33,6 +33,14 @@ Python Client.py
 <br>
 3. Now Enter a nickname and start chatting. 
 
+
+## v1.2 Updates
+- The version 1.2 supports the Admin Controls. The admin has certain controls over the chat room.
+- The enhanced features include
+  - <b>Kick Feature</b> : Admin can kick anyone from the Chat Room.
+  - <b>Ban Feature</b> : Admin can ban certain members from re-joining the Chat Room. These names are added in a List.
+- Minor Bug Fixes.
+
 <hr>
 
 ## Demo-Video 📹
@@ -40,7 +48,7 @@ Python Client.py
 This is a demo video of the Working of this project.
 <br><br>
 
-![](https://github.com/IamLucif3r/Chat-On/blob/main/assets/2021-05-21-09-25-56.gif)
+![](https://github.com/IamLucif3r/Chat-On/blob/main/assets/2021-05-22-15-10-08.gif)
 
 <hr>
 
