@@ -31,7 +31,7 @@ Python Server.py
 Python Client.py
 ```
 <br>
-3. Now Enter a nickname and start chatting. 
+3. Now Enter a nickname and start your chatting. 
 
 
 ## v1.2 Updates
