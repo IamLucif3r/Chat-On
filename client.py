@@ -1,13 +1,50 @@
 import socket
 import threading
+import json
 
-nickname = input("Choose Your Nickname:")
-if nickname == 'admin':
-    password = input("Enter Password for Admin:")
+def enter_server():
+    with open('servers.json') as f:
+        data = json.load(f)
+    print('Your servers: ')
+    # Print the servers that are stored in the servers.json file
+    for servers in data["servers"]:
+        print(servers["name"], end=" ")
+    # Ask user for the name of the server to join
+    server_name = input("\nEnter the server name:")
+    # Variables that will store the ip and port number to connect with server
+    global ip
+    global port
+    # Search in the servers.json the ip and port number of the server that the user want to join
+    for server in data["servers"]:
+        if server["name"] == server_name:
+            ip = server["ip"]
+            port = server["port"]
+    global nickname
+    global password
+    nickname = input("Choose Your Nickname:")
+    if nickname == 'admin':
+        password = input("Enter Password for Admin:")
+
+def add_server():
+    server_name = input("Enter a name for the server:")
+    server_ip = input("Enter the ip address of the server:")
+    server_port = int(input("Enter the port number of the server:"))
+
+    with open('servers.json', 'w') as f:
+        data = json.load(f)
+    # Store the info of the new server in servers.json
+    data["servers"].append({"name": server_name, "ip": server_ip, "port": server_port})
+    json.dump(data, f, indent=4)
+    f.close()
+
+
+"""
+    Menu function
+"""
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #Connect to a host
-client.connect(('127.0.0.1',5555))
+client.connect((ip,port))
 
 stop_thread = False
 
@@ -15,7 +52,7 @@ def recieve():
     while True:
         global stop_thread
         if stop_thread:
-            break    
+            break
         try:
             message = client.recv(1024).decode('ascii')
             if message == 'NICK':
@@ -37,7 +74,7 @@ def recieve():
             print('Error Occured while Connecting')
             client.close()
             break
-        
+
 def write():
     while True:
         if stop_thread:

@@ -2,7 +2,7 @@ import threading
 import socket
 # Now this Host is the IP address of the Server, over which it is running.
 # I've user my localhost.
-host = "127.0.0.1"
+host = "192.168.2.104"
 port = 5555 # Choose any random port which is not so common (like 80)
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -23,7 +23,7 @@ def broadcast(message):
 def handle(client):
     while True:
         try:
-            msg = message = client.recv(1024)  
+            msg = message = client.recv(1024)
             if msg.decode('ascii').startswith('KICK'):
                 if nicknames[clients.index(client)] == 'admin':
                     name_to_kick = msg.decode('ascii')[5:]
@@ -41,7 +41,7 @@ def handle(client):
                     client.send('Command Refused!'.encode('ascii'))
             else:
                 broadcast(message)   # As soon as message recieved, broadcast it.
-        
+
         except:
             if client in clients:
                 index = clients.index(client)
@@ -63,7 +63,7 @@ def recieve():
         # If the Client is an Admin promopt for the password.
         with open('bans.txt', 'r') as f:
             bans = f.readlines()
-        
+
         if nickname+'\n' in bans:
             client.send('BAN'.encode('ascii'))
             client.close()
