@@ -1,9 +1,27 @@
 import threading
 import socket
-# Now this Host is the IP address of the Server, over which it is running.
-# I've user my localhost.
-host = "192.168.2.104"
-port = 5555 # Choose any random port which is not so common (like 80)
+import json
+import os
+
+# Menu loop, only break when user want to start the server
+while True:
+    os.system('cls||clear')
+    option = input("(1)Start server\n(2)Configure ip/port of the server\n")
+    if option == '1':
+        break
+    elif option == '2':
+        os.system('cls||clear')
+        server_ip = input("Enter the ip of the server:")
+        server_port = int(input("Enter the port number of the server:"))
+        server_config = {"ip": server_ip, "port": server_port}
+        with open('server_configuration.json', 'w') as f:
+            json.dump(server_config, f, indent=4)
+
+os.system('cls||clear')
+with open('server_configuration.json', 'r') as f:
+    server_data = json.load(f)
+    host = server_data["ip"]
+    port = server_data["port"]
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #Bind the server to IP Address
