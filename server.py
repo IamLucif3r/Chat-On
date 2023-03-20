@@ -4,10 +4,10 @@ import socket
 # Encoding format for messages
 ENCODING = 'ascii'
 
-# `HOST` is the IPv4 address of the Server, over which it is running.
-# I've used my local area network IPv4 address.
+# `HOST` is the IPv4 address of the Server, i.e. machine on which server.py will run
+# I've used my LAN IPv4 address
 HOST = "192.168.2.104"
-PORT = 5555  # Choose any random port which is not so common (like 80 is very common)
+PORT = 5555  # Choose any random port which is not common (ports like 80, 53 are very common)
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Bind the server to IP Address
