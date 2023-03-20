@@ -3,6 +3,12 @@ import threading
 import json
 import os
 
+# Encoding format for messages
+ENCODING = 'ascii'
+
+# Flag to stop running threads
+stop_thread = False
+
 
 def enter_server():
     os.system('cls||clear')
@@ -44,32 +50,17 @@ def add_server():
         json.dump(data, f, indent=4)
 
 
-# Menu loop, it will loop until the user choose to enter a server
-while True:
-    os.system('cls||clear')
-    option = input("(1)Enter server\n(2)Add server\n")
-    if option == '1':
-        enter_server()
-        break
-    elif option == '2':
-        add_server()
-
-stop_thread = False
-
-
 def receive():
-    while True:
-        global stop_thread
-        if stop_thread:
-            break
+    global stop_thread
+    while not stop_thread:
         try:
-            message = client.recv(1024).decode('ascii')
+            message = client.recv(1024).decode(ENCODING)
             if message == 'NICK':
-                client.send(nickname.encode('ascii'))
-                next_message = client.recv(1024).decode('ascii')
+                client.send(nickname.encode(ENCODING))
+                next_message = client.recv(1024).decode(ENCODING)
                 if next_message == 'PASS':
-                    client.send(password.encode('ascii'))
-                    if client.recv(1024).decode('ascii') == 'REFUSE':
+                    client.send(password.encode(ENCODING))
+                    if client.recv(1024).decode(ENCODING) == 'REFUSE':
                         print("Connection is Refused !! Wrong Password")
                         stop_thread = True
                 # Clients those are banned can't reconnect
@@ -86,24 +77,32 @@ def receive():
 
 
 def write():
-    while True:
-        if stop_thread:
-            break
+    while not stop_thread:
         # Getting Messages
-        message = f'{nickname}: {input("")}'
+        message = f'{nickname}: {input()}'
         if message[len(nickname) + 2:].startswith('/'):
             if nickname == 'admin':
                 if message[len(nickname) + 2:].startswith('/kick'):
                     # 2 for : and whitespace and 6 for /KICK_
-                    client.send(f'KICK {message[len(nickname) + 2 + 6:]}'.encode('ascii'))
+                    client.send(f'KICK {message[len(nickname) + 2 + 6:]}'.encode(ENCODING))
                 elif message[len(nickname) + 2:].startswith('/ban'):
                     # 2 for : and whitespace and 5 for /BAN
-                    client.send(f'BAN {message[len(nickname) + 2 + 5:]}'.encode('ascii'))
+                    client.send(f'BAN {message[len(nickname) + 2 + 5:]}'.encode(ENCODING))
             else:
                 print("Commands can be executed by Admins only !!")
         else:
-            client.send(message.encode('ascii'))
+            client.send(message.encode(ENCODING))
 
+
+# Menu loop, it will loop until the user choose to enter a server
+while True:
+    os.system('cls||clear')
+    option = input("(1)Enter server\n(2)Add server\n")
+    if option == '1':
+        enter_server()
+        break
+    elif option == '2':
+        add_server()
 
 receive_thread = threading.Thread(target=receive)
 receive_thread.start()
